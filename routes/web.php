@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +27,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::prefix('posts')
+->middleware('auth')
+->name('posts.')
+->controller(PostController::class)
+->group(function () {
+    Route::get('/','index')->name('index');
+    Route::get('create','create')->name('create');
+    Route::get('/{id}','show')->name('show');
+    Route::get('edit/{id}','edit')->name('edit');
 });
 
 require __DIR__.'/auth.php';

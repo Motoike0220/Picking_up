@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
 use App\Models\Contents;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -39,8 +40,12 @@ class PostController extends Controller
     {
         Contents::create([
             'post' => $request->post,
-            'image_pasth' => $request->image_path
+            'user_id' => Auth::user()->id,
+            'image_path' => $request->image_path
         ]);
+
+        return to_route('posts.index');
+
     }
 
     /**
@@ -81,7 +86,7 @@ class PostController extends Controller
         $content->post = $request->post;
         $content->image_path = $request->image_path;
 
-        return to_route('posts.index');
+        return to_route('posts.index',compact('content'));
     }
 
     /**

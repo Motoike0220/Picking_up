@@ -38,6 +38,7 @@ Route::prefix('posts')
     Route::get('create','create')->name('create');
     Route::get('/{id}','show')->name('show');
     Route::get('edit/{id}','edit')->name('edit');
+    Route::post('store','store')->name('store');
 });
 
 require __DIR__.'/auth.php';
